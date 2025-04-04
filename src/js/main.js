@@ -24,7 +24,7 @@ let strength = 0;
 
 // Environment variables
 const dpr = window.devicePixelRatio;
-const colorBackground = getComputedStyle(document.documentElement).getPropertyValue('--color-background');
+let colorBackground;
 
 // Uniform variables for shaders
 const resolution = new THREE.Vector2(1, 1);
@@ -43,6 +43,8 @@ const itemList = [];
  * Initialize the application
  */
 function init() {
+	colorBackground = getComputedStyle(document.documentElement).getPropertyValue('--color-background');
+
 	// Set up Three.js scene
 	setupThreeJS();
 
@@ -307,5 +309,5 @@ function updateMeshes(dt) {
 	}
 }
 
-// Initialize the application
-init();
+// wait one frame before initializing to ensure the css properties are set
+requestAnimationFrame(init);
