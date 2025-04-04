@@ -81,8 +81,8 @@ Clone the repo and run it locally:
 
 ```bash
 # Clone the repo
-git clone https://github.com/TBC_HERE
-cd your-repo-name
+git clone https://github.com/lusionltd/WebGL-Scroll-Sync
+cd WebGL-Scroll-Sync
 
 # Install dependencies
 npm install
