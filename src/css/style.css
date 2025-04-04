@@ -25,6 +25,7 @@
 	--color-text: #e32604;
 	--color-background: #490700;
 	--color-border: #82e7c2;
+	--color-white: #ffffff;
 
 	/* Layout */
 	--margin-top-section: 250px;
@@ -507,6 +508,14 @@ html.is-overlay-active #overlay {
 	font-size: var(--font-size-body5);
 	max-width: 25ch;
 	margin-top: auto;
+}
+
+#overlay a {
+	transition: color 0.1s;
+}
+
+#overlay a:hover {
+	color: var(--color-white);
 }
 
 #wrapper {
