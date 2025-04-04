@@ -2,7 +2,7 @@
 
 **TL;DR:** An imperfect solution. One that creates another issue, but it's a problem we can mitigate.
 
-👉 [Live Demo](url)
+👉 [Live Demo](https://webgl-scroll-sync.lusion.co/)
 
 ---
 
